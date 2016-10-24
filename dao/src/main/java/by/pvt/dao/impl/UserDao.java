@@ -2,7 +2,6 @@ package by.pvt.dao.impl;
 
 import by.pvt.dao.IDao;
 import by.pvt.dao.exception.DaoException;
-import by.pvt.entity.User;
 import by.pvt.pool.ConnectionPool;
 import by.pvt.pool.exception.ConnectionPoolException;
 
@@ -15,16 +14,8 @@ import java.util.List;
  */
 public class UserDao<User, String extends Serializable> implements IDao<User, String> {
 
-    private static final java.lang.String GET_USER_LIST_QUERY = "SELECT * FROM USER";
-    private static final java.lang.String GET_USER_QUERY = "SELECT * FROM user WHERE login = ?";
-    private static final java.lang.String UPDATE_USER_QUERY = "UPDATE USER SET USER_password = ? WHERE USER_login = ?";
-    private static final java.lang.String DELETE_USER_QUERY = "DELETE FROM USER WHERE USER_login = ?";
-    private static final java.lang.String CREATE_USER_QUERY = "INSERT INTO USER VALUES(?,?,?,?)";
-
-    // JDBC variables for opening and managing connection
-
-
     public UserDao() {
+
     }
 
     public User get(String login) throws DaoException {
@@ -32,6 +23,9 @@ public class UserDao<User, String extends Serializable> implements IDao<User, St
         Statement stmt = null;
         ResultSet rs = null;
         String loginForQuery = login;
+        by.pvt.entity.User user = new by.pvt.entity.User();
+
+
         System.out.println("------------------------" + loginForQuery);
         try {
             // opening database connection to MySQL server
@@ -57,11 +51,13 @@ public class UserDao<User, String extends Serializable> implements IDao<User, St
                 int userType = rs.getInt("userType");
                 int inBlackList = rs.getInt("inBlackList");
 
-                System.out.println("userid : " + userid);
-                System.out.println("username : " + username);
-                System.out.println("userpass : " + userpass);
-                System.out.println("userfirstName : " + userfirstName);
-                System.out.println("userlastName : " + userlastName);
+                user.setId(userid);
+                user.setLogin(username);
+                user.setPassword(userpass);
+                user.setFirstName(userfirstName);
+                user.setLastName(userlastName);
+                user.setUserType(userType);
+                user.setInBlackList(inBlackList);
             }
 
         } catch (SQLException sqlEx) {
@@ -78,7 +74,7 @@ public class UserDao<User, String extends Serializable> implements IDao<User, St
                 rs.close();
             } catch (SQLException se) { /*can't do anything */ }
         }
-        return null;
+        return (User)user;
     }
 
     public List<User> getAll() throws DaoException {

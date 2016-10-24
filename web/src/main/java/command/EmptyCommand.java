@@ -1,6 +1,6 @@
-package by.pvt.command;
+package command;
 
-import by.pvt.resource.ConfigurationManager;
+import resource.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
 

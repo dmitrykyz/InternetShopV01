@@ -1,4 +1,4 @@
-package by.pvt.resource;
+package resource;
 
 import java.util.ResourceBundle;
 

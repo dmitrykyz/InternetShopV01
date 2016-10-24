@@ -15,6 +15,16 @@ public class User {
     public User() {
     }
 
+    public User(int id, String login, String password, String firstName, String lastName, int userType, int inBlackList) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userType = userType;
+        this.inBlackList = inBlackList;
+    }
+
     public int getId() {
         return id;
     }

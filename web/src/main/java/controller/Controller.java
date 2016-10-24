@@ -1,9 +1,9 @@
 package controller;
 
-import by.pvt.command.ActionCommand;
-import by.pvt.command.factory.ActionFactory;
-import by.pvt.resource.ConfigurationManager;
-import by.pvt.resource.MessageManager;
+import command.ActionCommand;
+import command.factory.ActionFactory;
+import resource.ConfigurationManager;
+import resource.MessageManager;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

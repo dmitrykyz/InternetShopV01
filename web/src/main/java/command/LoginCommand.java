@@ -1,9 +1,14 @@
-package by.pvt.command;
+package command;
 
-import by.pvt.command.ActionCommand;
+import by.pvt.entity.User;
+import by.pvt.services.IService;
+import by.pvt.services.ServiceFactory;
+import by.pvt.services.ServiceName;
+import by.pvt.services.exception.ServiceException;
+import command.ActionCommand;
 import by.pvt.logic.LoginLogic;
-import by.pvt.resource.ConfigurationManager;
-import by.pvt.resource.MessageManager;
+import resource.ConfigurationManager;
+import resource.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +25,18 @@ public class LoginCommand implements ActionCommand {
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 // проверка логина и пароля
-        LoginLogic.SomeMetod();
+
+        IService loginService = ServiceFactory.getInstance().getService(ServiceName.USER);
+        try {
+            User user = (User) loginService.get(login);
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("Login : " + user.getLogin());
+            System.out.println("Password : " + user.getPassword());
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
+        //LoginLogic.SomeMetod();
         if (LoginLogic.checkLogin(login, pass)) {
             request.setAttribute("user", login);
 // определение пути к main.jsp

@@ -1,4 +1,4 @@
-package by.pvt.command;
+package command;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,9 +1,9 @@
-package by.pvt.command.factory;
+package command.factory;
 
-import by.pvt.command.ActionCommand;
-import by.pvt.command.EmptyCommand;
-import by.pvt.command.client.CommandEnum;
-import by.pvt.resource.MessageManager;
+import command.ActionCommand;
+import command.EmptyCommand;
+import command.client.CommandEnum;
+import resource.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
 

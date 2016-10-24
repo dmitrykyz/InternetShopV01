@@ -1,8 +1,8 @@
-package by.pvt.command.client;
+package command.client;
 
-import by.pvt.command.ActionCommand;
-import by.pvt.command.LoginCommand;
-import by.pvt.command.LogoutCommand;
+import command.ActionCommand;
+import command.LoginCommand;
+import command.LogoutCommand;
 
 /**
  * Created by Dmitry on 10/23/2016.
