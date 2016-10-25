@@ -3,8 +3,7 @@ package by.pvt.entity;
 /**
  * Created by Dmitry on 10/23/2016.
  */
-public class User {
-    private int id;
+public class User extends Entity {
     private String login;
     private String password;
     private String firstName;
@@ -13,21 +12,9 @@ public class User {
     private int inBlackList = 0; //0 - not in blackList; 1 - in blackList
 
     public User() {
+        super();
     }
 
-    public User(int id, String login, String password, String firstName, String lastName, int userType, int inBlackList) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userType = userType;
-        this.inBlackList = inBlackList;
-    }
-
-    public int getId() {
-        return id;
-    }
 
     public String getLogin() {
         return login;
@@ -51,10 +38,6 @@ public class User {
 
     public int getInBlackList() {
         return inBlackList;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setLogin(String login) {

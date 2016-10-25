@@ -3,17 +3,13 @@ package by.pvt.entity;
 /**
  * Created by Dmitry on 10/23/2016.
  */
-public class Product {
-    private int id;
+public class Product extends Entity{
     private String nameProduct;
     private double price;
     private String status = "yes"; //yes - shop has this product; not - shop do not has this product
 
     public Product() {
-    }
-
-    public int getId() {
-        return id;
+        super();
     }
 
     public String getNameProduct() {
@@ -26,10 +22,6 @@ public class Product {
 
     public String getStatus() {
         return status;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setNameProduct(String nameProduct) {

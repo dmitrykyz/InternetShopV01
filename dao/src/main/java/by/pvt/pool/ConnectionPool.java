@@ -3,6 +3,7 @@ package by.pvt.pool;
 import by.pvt.pool.exception.ConnectionPoolException;
 import by.pvt.pool.util.DBParameter;
 import by.pvt.pool.util.DBResourceManager;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.concurrent.Executor;
  */
 public class ConnectionPool {
 
+    private static Logger log = Logger.getLogger(ConnectionPool.class);
     private static final String SQL_ERROR_MESSAGE = "SQL exception occurred.";
     private static final String RESULT_SET_ERROR_MESSAGE = "Unable to close result set.";
     private static final String STATEMENT_ERROR_MESSAGE = "Unable to close statement.";
@@ -61,8 +63,7 @@ public class ConnectionPool {
     public void initPoolData() throws ConnectionPoolException {
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("********************************************************");
+            Class.forName(driverName);
             givenAwayConQueue = new ArrayBlockingQueue<Connection>(poolSize);
             connectionQueue = new ArrayBlockingQueue<Connection>(poolSize);
             for(int i = 0; i < poolSize; i++) {
@@ -71,6 +72,7 @@ public class ConnectionPool {
 
                 connectionQueue.add(pooledConnection);
             }
+            log.info("initPoolData in class ConnectionPool is succed");
         } catch (ClassNotFoundException e) {
             throw new ConnectionPoolException(SQL_CONNECTION_POOL_ERROR_MESSAGE, e);
         } catch (SQLException e) {

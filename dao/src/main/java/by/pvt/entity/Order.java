@@ -5,22 +5,15 @@ import java.util.List;
 /**
  * Created by Dmitry on 10/23/2016.
  */
-public class Order {
-    private int id;
+public class Order extends Entity {
     private List<Product> productList;
     private String isRegistryOrder = "not"; //yes - registry ; not - not registry
     private String isPaidOrder = "not"; //yes - paid; not - not paid
 
     public Order() {
+        super();
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public List<Product> getProductList() {
         return productList;

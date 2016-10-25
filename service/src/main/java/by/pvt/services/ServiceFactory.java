@@ -1,7 +1,7 @@
 package by.pvt.services;
 
-import by.pvt.services.impl.ProductService;
-import by.pvt.services.impl.UserService;
+import by.pvt.services.impl.ProductServiceImpl;
+import by.pvt.services.impl.UserServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,12 +12,12 @@ import java.util.Map;
 public class ServiceFactory {
     private static volatile ServiceFactory instance = null;
 
-    private Map<ServiceName, IService> services = null;
+    private Map<ServiceName, AbstractService> services = null;
 
     private ServiceFactory() {
-        services = new HashMap<ServiceName, IService>();
-        services.put(ServiceName.USER, new UserService());
-        services.put(ServiceName.PRODUCT, new ProductService());
+        services = new HashMap<ServiceName, AbstractService>();
+        services.put(ServiceName.USER, new UserServiceImpl());
+        services.put(ServiceName.PRODUCT, new ProductServiceImpl());
     }
 
     public static ServiceFactory getInstance() {
@@ -34,7 +34,7 @@ public class ServiceFactory {
         return instance;
     }
 
-    public IService getService(ServiceName serviceName) {
+    public AbstractService getService(ServiceName serviceName) {
         return services.get(serviceName);
     }
 }

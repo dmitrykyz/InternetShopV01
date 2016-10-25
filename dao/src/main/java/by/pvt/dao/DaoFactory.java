@@ -1,7 +1,7 @@
 package by.pvt.dao;
 
-import by.pvt.dao.impl.ProductDao;
-import by.pvt.dao.impl.UserDao;
+import by.pvt.dao.impl.ProductDaoImpl;
+import by.pvt.dao.impl.UserDaoImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,12 +12,12 @@ import java.util.Map;
 public class DaoFactory {
     private static volatile DaoFactory instance = null;
 
-    private Map<DaoName, IDao> daos = null;
+    private Map<DaoName, AbstractDAO> daos = null;
 
     private DaoFactory() {
-        daos = new HashMap<DaoName, IDao>();
-        daos.put(DaoName.USER, new UserDao());
-        daos.put(DaoName.PRODUCT, new ProductDao());
+        daos = new HashMap<DaoName, AbstractDAO>();
+        daos.put(DaoName.USER, new UserDaoImpl());
+        daos.put(DaoName.PRODUCT, new ProductDaoImpl());
     }
 
     public static DaoFactory getInstance() {
@@ -34,7 +34,7 @@ public class DaoFactory {
         return instance;
     }
 
-    public IDao getDao(DaoName daoName) {
+    public AbstractDAO getDao(DaoName daoName) {
         return daos.get(daoName);
     }
 }
