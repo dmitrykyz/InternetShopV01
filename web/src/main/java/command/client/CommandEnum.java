@@ -1,8 +1,6 @@
 package command.client;
 
-import command.ActionCommand;
-import command.LoginCommand;
-import command.LogoutCommand;
+import command.*;
 
 /**
  * Created by Dmitry on 10/23/2016.
@@ -16,6 +14,16 @@ public enum CommandEnum {
     LOGOUT {
         {
             this.command = new LogoutCommand();
+        }
+    },
+    SIGNUP{
+        {
+            this.command = new SignupCommand();
+        }
+    },
+    ADDNEWCLIENT{
+        {
+            this.command = new AddNewClientCommand();
         }
     };
     ActionCommand command;

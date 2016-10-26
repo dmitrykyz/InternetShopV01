@@ -6,10 +6,7 @@ import by.pvt.pool.ConnectionPool;
 import by.pvt.pool.exception.ConnectionPoolException;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -29,7 +26,6 @@ public class UserDaoImpl extends AbstractDAO<Integer, User> {
         String loginForQuery = login;
         User user = new User();
 
-
         try {
             // opening database connection to MySQL server
             try {
@@ -37,7 +33,6 @@ public class UserDaoImpl extends AbstractDAO<Integer, User> {
             } catch (ConnectionPoolException e) {
                 e.printStackTrace();
             }
-
             // getting Statement object to execute query
             stmt = con.createStatement();
             // executing SELECT query
@@ -92,7 +87,48 @@ public class UserDaoImpl extends AbstractDAO<Integer, User> {
 
     @Override
     public boolean create(User entity) {
-        return false;
+        log.info("Create new User in class UserDaoImpl and write in tabel User");
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        User user = entity;
+        String loginEntity = user.getLogin();
+        String passwordEntity = user.getPassword();
+        String firstNameEntity = user.getFirstName();
+        String lastNameEntity = user.getLastName();
+        int userTypeEntity = user.getUserType();
+        int inBlackListEntity = user.getInBlackList();
+
+        try {
+            // opening database connection to MySQL server
+            try {
+                con = ConnectionPool.getInstance().takeConnection();
+            } catch (ConnectionPoolException e) {
+                e.printStackTrace();
+            }
+            // getting Statement object to execute query
+            stmt = con.prepareStatement("INSERT INTO user(login, password, firstName, lastName, userType, inBlackList) VALUES(?, ?, ?, ?, ?, ?);");
+            stmt.setString(1, loginEntity);
+            stmt.setString(2, passwordEntity);
+            stmt.setString(3, firstNameEntity);
+            stmt.setString(4, lastNameEntity);
+            stmt.setInt(5, userTypeEntity);
+            stmt.setInt(6, inBlackListEntity);
+            stmt.execute();
+
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try {
+                con.close();
+            } catch (SQLException se) { /*can't do anything */ }
+            try {
+                stmt.clearParameters();
+                stmt.close();
+            } catch (SQLException se) { /*can't do anything */ }
+        }
+        return true;
     }
 
     @Override

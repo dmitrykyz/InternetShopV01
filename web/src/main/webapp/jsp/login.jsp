@@ -14,6 +14,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html><head><title>Login</title></head>
 <body>
+<h3>Internet shop</h3>
 <form name="loginForm" method="POST" action="controller">
     <input type="hidden" name="command" value="login" />
     Login:<br/>
@@ -26,6 +27,9 @@
     ${wrongAction}
     <br/>
     ${nullPage}
+    <br/>
+    <a href="controller?command=signup">Sign up</a>
+    <br/>
     <br/>
     <input type="submit" value="Log in"/>
 </form><hr/>

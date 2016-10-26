@@ -21,6 +21,7 @@ public class LoginLogic {
 
         ADMIN_LOGIN = user.getLogin();
         ADMIN_PASS = user.getPassword();
+        if (ADMIN_LOGIN == null || ADMIN_PASS == null) return false;
         return ADMIN_LOGIN.equals(enterLogin) &&
                 ADMIN_PASS.equals(enterPass);
     }

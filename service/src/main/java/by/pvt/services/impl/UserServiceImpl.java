@@ -1,5 +1,8 @@
 package by.pvt.services.impl;
 
+import by.pvt.dao.AbstractDAO;
+import by.pvt.dao.DaoFactory;
+import by.pvt.dao.DaoName;
 import by.pvt.dao.impl.UserDaoImpl;
 import by.pvt.entity.User;
 import by.pvt.services.AbstractService;
@@ -45,7 +48,10 @@ public class UserServiceImpl extends AbstractService<Integer, User> {
 
     @Override
     public boolean create(User entity) {
-        return false;
+        log.info("Create new User in class UserServiceImpl");
+        AbstractDAO<Integer, User> userDao = DaoFactory.getInstance().getDao(DaoName.USER);
+        if (userDao.create(entity) == true) return true;
+        else return false;
     }
 
     @Override
