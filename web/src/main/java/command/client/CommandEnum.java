@@ -35,6 +35,16 @@ public enum CommandEnum {
         {
             this.command = new ShowAllProductCommand();
         }
+    },
+    ADDNEWPRODUCT{
+        {
+            this.command = new AddNewProductCommand();
+        }
+    },
+    ADDNEWPRODUCTSHOWPAGE{
+        {
+            this.command = new ShowPageForAddNewProductCommand();
+        }
     };
     ActionCommand command;
 

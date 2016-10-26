@@ -15,12 +15,9 @@ ${user}, hello!
 <hr/>
 <a href="controller?command=logout">Logout</a>
 <br/>
-<br/>
 <form name="signupForm" method="POST" action="controller">
     <h3>If your want show all product in shop click "Show all product"</h3>
-    <br/>
     <input type="hidden" name="command" value="showallproduct" />
-    <br/>
     <input type="submit" value="Show all product"/>
     <br/>
     <table>
