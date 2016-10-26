@@ -16,7 +16,7 @@
 Hellow! You successfully registered
 and can make a purchase in our Internet Shop using your login and pass</h3>
 <br/>
-<a href="controller?command=signin">Sign in</a>
+<a href="controller?command=return_to_loginjsp">Sign in</a>
 
 </body>
 </html>

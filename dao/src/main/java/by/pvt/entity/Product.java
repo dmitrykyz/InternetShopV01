@@ -35,4 +35,9 @@ public class Product extends Entity{
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "" + super.getId() + " " + nameProduct + " " + price + "$ " + status;
+    }
 }

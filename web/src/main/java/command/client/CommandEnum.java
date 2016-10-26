@@ -25,6 +25,16 @@ public enum CommandEnum {
         {
             this.command = new AddNewClientCommand();
         }
+    },
+    RETURN_TO_LOGINJSP{
+        {
+            this.command = new ReturnToLoginCommand();
+        }
+    },
+    SHOWALLPRODUCT{
+        {
+            this.command = new ShowAllProductCommand();
+        }
     };
     ActionCommand command;
 

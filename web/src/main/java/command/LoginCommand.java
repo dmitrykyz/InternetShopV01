@@ -29,8 +29,13 @@ public class LoginCommand implements ActionCommand {
 // проверка логина и пароля
         if (LoginLogic.checkLogin(login, pass)) {
             request.setAttribute("user", login);
-// определение пути к main.jsp
-            page = ConfigurationManager.getProperty("path.page.main");
+// определение пути к mainByer.jsp или к mainAdmin.jsp
+            if (LoginLogic.getUserType() == 0){
+                page = ConfigurationManager.getProperty("path.page.mainByer");
+            } else if (LoginLogic.getUserType() == 1){
+                page = ConfigurationManager.getProperty("path.page.mainAdmin");
+            }
+
         } else {
             request.setAttribute("errorLoginPassMessage",
                     MessageManager.getProperty("message.loginerror"));

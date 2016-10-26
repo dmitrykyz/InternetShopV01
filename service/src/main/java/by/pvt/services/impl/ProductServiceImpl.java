@@ -1,5 +1,9 @@
 package by.pvt.services.impl;
 
+import by.pvt.dao.AbstractDAO;
+import by.pvt.dao.DaoFactory;
+import by.pvt.dao.DaoName;
+import by.pvt.entity.Product;
 import by.pvt.entity.User;
 import by.pvt.services.AbstractService;
 import org.apache.log4j.Logger;
@@ -9,7 +13,7 @@ import java.util.List;
 /**
  * Created by Dmitry on 10/25/2016.
  */
-public class ProductServiceImpl extends AbstractService<Integer, User> {
+public class ProductServiceImpl extends AbstractService<Integer, Product> {
 
     private static Logger log = Logger.getLogger(ProductServiceImpl.class);
 
@@ -17,12 +21,14 @@ public class ProductServiceImpl extends AbstractService<Integer, User> {
     }
 
     @Override
-    public List<User> getAll() {
-        return null;
+    public List<Product> getAll() {
+        log.info("Get all Product from DB in class ProductServiceImpl using ");
+        AbstractDAO<Integer, Product> productDao = DaoFactory.getInstance().getDao(DaoName.PRODUCT);
+        return productDao.getAll();
     }
 
     @Override
-    public User getEntityById(Integer id) {
+    public Product getEntityById(Integer id) {
         return null;
     }
 
@@ -32,17 +38,17 @@ public class ProductServiceImpl extends AbstractService<Integer, User> {
     }
 
     @Override
-    public boolean delete(User entity) {
+    public boolean delete(Product entity) {
         return false;
     }
 
     @Override
-    public boolean create(User entity) {
+    public boolean create(Product entity) {
         return false;
     }
 
     @Override
-    public User update(User entity) {
+    public Product update(Product entity) {
         return null;
     }
 }

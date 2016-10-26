@@ -10,6 +10,8 @@
 <head><title>Sign up new Shop Client</title></head>
 <body>
 <form name="signupForm" method="POST" action="controller">
+    <h3>Enter your authorization parameters</h3>
+    <br/>
     <input type="hidden" name="command" value="addnewclient" />
     Login: <input type="text" name="login" value=""/>
     <br/>
