@@ -6,10 +6,7 @@ import by.pvt.pool.ConnectionPool;
 import by.pvt.pool.exception.ConnectionPoolException;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +16,8 @@ import java.util.List;
 public class ProductDaoImpl extends AbstractDAO<Integer, Product> {
 
     private static Logger log = Logger.getLogger(ProductDaoImpl.class);
+    private static final String SELLECT_ALL_PRODUCT = "SELECT * FROM product";
+    private static final String CREATE_PRODUCT = "INSERT INTO product(nameProduct, price, status) VALUES(?, ?, ?);";
 
     public ProductDaoImpl() {
     }
@@ -26,22 +25,14 @@ public class ProductDaoImpl extends AbstractDAO<Integer, Product> {
     @Override
     public List<Product> getAll() {
         log.info("Get all Product in class ProductDaoImpl from db");
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
         List<Product> listProduct = new ArrayList<>();
 
-        try {
-            // opening database connection to MySQL server
-            try {
-                con = ConnectionPool.getInstance().takeConnection();
-            } catch (ConnectionPoolException e) {
-                e.printStackTrace();
-            }
-            // getting Statement object to execute query
-            stmt = con.createStatement();
-            // executing SELECT all query
-            rs = stmt.executeQuery("SELECT * FROM product");
+        // opening database connection to MySQL server
+        // getting Statement object to execute query
+        // executing SELECT all query
+        try (Connection con = ConnectionPool.getInstance().takeConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(SELLECT_ALL_PRODUCT)) {
 
             while (rs.next()) {
                 Product product = new Product();
@@ -52,20 +43,10 @@ public class ProductDaoImpl extends AbstractDAO<Integer, Product> {
                 listProduct.add(product);
             }
 
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        } finally {
-            //close connection ,stmt and resultset here
-            try {
-                con.close();
-            } catch (SQLException se) { /*can't do anything */ }
-            try {
-                stmt.close();
-            } catch (SQLException se) { /*can't do anything */ }
-            try {
-                rs.close();
-            } catch (SQLException se) { /*can't do anything */ }
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
         }
+
         return listProduct;
     }
 
@@ -86,7 +67,28 @@ public class ProductDaoImpl extends AbstractDAO<Integer, Product> {
 
     @Override
     public boolean create(Product entity) {
-        return false;
+        log.info("Create new Product in class ProductDaoImpl and write in tabel Product");
+
+        Product product = entity;
+        String nameProduct = product.getNameProduct();
+        Double price = product.getPrice();
+        String status = product.getStatus();
+
+        // opening database connection to MySQL server
+        // and getting Statement object to execute query
+        try (Connection con = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement stmt  = con.prepareStatement(CREATE_PRODUCT)) {
+
+            stmt.setString(1, nameProduct);
+            stmt.setDouble(2, price);
+            stmt.setString(3, status);
+            stmt.execute();
+
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
     @Override

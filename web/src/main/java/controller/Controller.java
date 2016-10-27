@@ -29,7 +29,6 @@ public class Controller extends HttpServlet {
     public void init() throws ServletException {
 
         //using JNDI
-
         try {
             Context initContext = new InitialContext();
             Context envContext = (Context) initContext.lookup("java:/comp/env");
@@ -51,23 +50,22 @@ public class Controller extends HttpServlet {
                                 HttpServletResponse response)
             throws ServletException, IOException {
         String page = null;
-// определение команды, пришедшей из JSP
+        // definition of the command, which came from JSP
         ActionFactory client = new ActionFactory();
         ActionCommand command = client.defineCommand(request);
 /*
-* вызов реализованного метода execute() и передача параметров
-* классу-обработчику конкретной команды
+* call implemented method execute() and passing parameter
+* to Class-specific command handler
 */
         page = command.execute(request);
-// метод возвращает страницу ответа
-// page = null; // поэксперементировать!
+// method returns the response page
         if (page != null) {
             RequestDispatcher dispatcher =
                     getServletContext().getRequestDispatcher(page);
-// вызов страницы ответа на запрос
+//challenge response to the request page
             dispatcher.forward(request, response);
         } else {
-// установка страницы c cообщением об ошибке
+//page setup whith Error Message
             page = ConfigurationManager.getProperty("path.page.index");
             request.getSession().setAttribute("nullPage",
                     MessageManager.getProperty("message.nullpage"));

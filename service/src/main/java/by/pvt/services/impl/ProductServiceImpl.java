@@ -44,7 +44,10 @@ public class ProductServiceImpl extends AbstractService<Integer, Product> {
 
     @Override
     public boolean create(Product entity) {
-        return false;
+        log.info("Create new Product in class ProductServiceImpl");
+        AbstractDAO<Integer, Product> productDao = DaoFactory.getInstance().getDao(DaoName.PRODUCT);
+        if (productDao.create(entity) == true) return true;
+        else return false;
     }
 
     @Override

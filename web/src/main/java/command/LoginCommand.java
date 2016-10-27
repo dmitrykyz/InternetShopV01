@@ -1,13 +1,5 @@
 package command;
 
-import by.pvt.entity.User;
-import by.pvt.services.AbstractService;
-import by.pvt.services.IService;
-import by.pvt.services.ServiceFactory;
-import by.pvt.services.ServiceName;
-import by.pvt.services.exception.ServiceException;
-import by.pvt.services.impl.UserServiceImpl;
-import command.ActionCommand;
 import by.pvt.logic.LoginLogic;
 import resource.ConfigurationManager;
 import resource.MessageManager;

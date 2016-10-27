@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 public class ActionFactory {
     public ActionCommand defineCommand(HttpServletRequest request) {
         ActionCommand current = new EmptyCommand();
-// извлечение имени команды из запроса
+// getting the command name from the request
         String action = request.getParameter("command");
         if (action == null || action.isEmpty()) {
-// если команда не задана в текущем запросе
+//if the command is not specified in the current request
             return current;
         }
-// получение объекта, соответствующего команде
+//getting an object corresponding to the command
         try {
             CommandEnum currentEnum =
                     CommandEnum.valueOf(action.toUpperCase());

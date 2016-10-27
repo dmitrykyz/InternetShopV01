@@ -14,29 +14,24 @@ import java.util.List;
  */
 public class UserDaoImpl extends AbstractDAO<Integer, User> {
     private static Logger log = Logger.getLogger(UserDaoImpl.class);
+    private static final String CREATE_USER = "INSERT INTO user(login, password, firstName, lastName, userType, inBlackList) VALUES(?, ?, ?, ?, ?, ?);";
+    private static final String SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE login = '";
 
     public UserDaoImpl() {
     }
 
     public User getUserByLogin(String login){
         log.info("Getting object User in class UserDaoImpl metod getUserByLogin() by login: " + login);
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+
         String loginForQuery = login;
         User user = new User();
 
-        try {
-            // opening database connection to MySQL server
-            try {
-                con = ConnectionPool.getInstance().takeConnection();
-            } catch (ConnectionPoolException e) {
-                e.printStackTrace();
-            }
-            // getting Statement object to execute query
-            stmt = con.createStatement();
-            // executing SELECT query
-            rs = stmt.executeQuery("SELECT * FROM user WHERE login = '" + loginForQuery + "' ");
+        // opening database connection to MySQL server
+        // getting Statement object to execute query
+        // executing SELECT query
+        try(Connection con = ConnectionPool.getInstance().takeConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SELECT_USER_BY_LOGIN + loginForQuery + "' ")) {
 
             while (rs.next()) {
                 user.setId(rs.getInt("id"));
@@ -47,22 +42,11 @@ public class UserDaoImpl extends AbstractDAO<Integer, User> {
                 user.setUserType(rs.getInt("userType"));
                 user.setInBlackList(rs.getInt("inBlackList"));
             }
-
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        } finally {
-            //close connection ,stmt and resultset here
-            try {
-                con.close();
-            } catch (SQLException se) { /*can't do anything */ }
-            try {
-                stmt.close();
-            } catch (SQLException se) { /*can't do anything */ }
-            try {
-                rs.close();
-            } catch (SQLException se) { /*can't do anything */ }
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
         }
-        return (User)user;
+
+        return user;
     }
 
     @Override
@@ -88,8 +72,6 @@ public class UserDaoImpl extends AbstractDAO<Integer, User> {
     @Override
     public boolean create(User entity) {
         log.info("Create new User in class UserDaoImpl and write in tabel User");
-        Connection con = null;
-        PreparedStatement stmt = null;
 
         User user = entity;
         String loginEntity = user.getLogin();
@@ -99,15 +81,11 @@ public class UserDaoImpl extends AbstractDAO<Integer, User> {
         int userTypeEntity = user.getUserType();
         int inBlackListEntity = user.getInBlackList();
 
-        try {
-            // opening database connection to MySQL server
-            try {
-                con = ConnectionPool.getInstance().takeConnection();
-            } catch (ConnectionPoolException e) {
-                e.printStackTrace();
-            }
-            // getting Statement object to execute query
-            stmt = con.prepareStatement("INSERT INTO user(login, password, firstName, lastName, userType, inBlackList) VALUES(?, ?, ?, ?, ?, ?);");
+        // opening database connection to MySQL server
+        // and getting Statement object to execute query
+        try (Connection con = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement stmt  = con.prepareStatement(CREATE_USER)) {
+
             stmt.setString(1, loginEntity);
             stmt.setString(2, passwordEntity);
             stmt.setString(3, firstNameEntity);
@@ -116,20 +94,14 @@ public class UserDaoImpl extends AbstractDAO<Integer, User> {
             stmt.setInt(6, inBlackListEntity);
             stmt.execute();
 
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
-        } finally {
-            //close connection ,stmt and resultset here
-            try {
-                con.close();
-            } catch (SQLException se) { /*can't do anything */ }
-            try {
-                stmt.clearParameters();
-                stmt.close();
-            } catch (SQLException se) { /*can't do anything */ }
+        } catch (SQLException | ConnectionPoolException e) {
+            e.printStackTrace();
         }
+
+
         return true;
     }
+
 
     @Override
     public User update(User entity) {

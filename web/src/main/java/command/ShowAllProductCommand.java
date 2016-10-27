@@ -29,7 +29,12 @@ public class ShowAllProductCommand implements ActionCommand  {
             System.out.println(product);
         }
 
-        page = ConfigurationManager.getProperty("path.page.mainByer");
+        if (LoginLogic.getUserType() == 0)
+            page = ConfigurationManager.getProperty("path.page.mainByer");
+        else{
+            if (LoginLogic.getUserType() == 1)
+                page = ConfigurationManager.getProperty("path.page.mainAdmin");
+        }
         return page;
     }
 }
