@@ -17,20 +17,20 @@ public class AddNewClientCommand implements ActionCommand  {
 
     public String execute(HttpServletRequest request) {
         String page = null;
-        User user = new User();
-        user.setLogin((String)request.getParameter("login"));
-        user.setPassword((String)request.getParameter("password"));
-        user.setFirstName((String)request.getParameter("firstname"));
-        user.setLastName((String)request.getParameter("laststname"));
-        user.setUserType(0);
-        user.setInBlackList(0);
-
-        log.info("Add new client Command with login: " + user.getLogin());
-
-        AbstractService userService = ServiceFactory.getInstance().getService(ServiceName.USER);
-        if (userService.create(user) == true) {
-            page = ConfigurationManager.getProperty("path.page.confirmationOfRegistration");
-        }
+//        User user = new User();
+//        user.setLogin((String)request.getParameter("login"));
+//        user.setPassword((String)request.getParameter("password"));
+//        user.setFirstName((String)request.getParameter("firstname"));
+//        user.setLastName((String)request.getParameter("laststname"));
+//        user.setUserType(0);
+//        user.setInBlackList(0);
+//
+//        log.info("Add new client Command with login: " + user.getLogin());
+//
+//        AbstractService userService = ServiceFactory.getInstance().getService(ServiceName.USER);
+//        if (userService.create(user) == true) {
+//            page = ConfigurationManager.getProperty("path.page.confirmationOfRegistration");
+//        }
 
         return page;
     }

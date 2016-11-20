@@ -12,10 +12,10 @@ import java.util.Map;
 public class DaoFactory {
     private static volatile DaoFactory instance = null;
 
-    private Map<DaoName, AbstractDAO> daos = null;
+    private Map<DaoName, BaseDao> daos = null;
 
     private DaoFactory() {
-        daos = new HashMap<DaoName, AbstractDAO>();
+        daos = new HashMap<DaoName, BaseDao>();
         daos.put(DaoName.USER, new UserDaoImpl());
         daos.put(DaoName.PRODUCT, new ProductDaoImpl());
     }
@@ -34,7 +34,7 @@ public class DaoFactory {
         return instance;
     }
 
-    public AbstractDAO getDao(DaoName daoName) {
+    public BaseDao getDao(DaoName daoName) {
         return daos.get(daoName);
     }
 }

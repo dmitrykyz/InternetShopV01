@@ -1,8 +1,5 @@
 package by.pvt.services;
 
-import by.pvt.services.impl.ProductServiceImpl;
-import by.pvt.services.impl.UserServiceImpl;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +13,8 @@ public class ServiceFactory {
 
     private ServiceFactory() {
         services = new HashMap<ServiceName, AbstractService>();
-        services.put(ServiceName.USER, new UserServiceImpl());
-        services.put(ServiceName.PRODUCT, new ProductServiceImpl());
+    //    services.put(ServiceName.USER, new UserServiceImpl());
+    //    services.put(ServiceName.PRODUCT, new ProductServiceImpl());
     }
 
     public static ServiceFactory getInstance() {

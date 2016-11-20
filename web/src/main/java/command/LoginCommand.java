@@ -20,6 +20,7 @@ public class LoginCommand implements ActionCommand {
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 // проверка логина и пароля
         if (LoginLogic.checkLogin(login, pass)) {
+            request.getSession().setAttribute("user", login);
             request.setAttribute("user", login);
 // определение пути к mainByer.jsp или к mainAdmin.jsp
             if (LoginLogic.getUserType() == 0){
