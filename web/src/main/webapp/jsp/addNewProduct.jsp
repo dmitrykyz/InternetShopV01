@@ -9,13 +9,21 @@
 <html>
 <head>
     <title>Add New Product</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-link {
+            color: black;
+        }
+    </style>
+
 </head>
 <body>
 <form name="addNewProductForm" method="POST" action="controller">
     <h3>Please enter param new product.</h3>
     <br/>
     <input type="hidden" name="command" value="addnewproduct" />
-    Product name: <input type="text" name="productName" value=""/>
+    Product name: <input type="text" name="productName"/>
     <br/>
     Price: <input type="number" name="price" value=""/>
     <br/>

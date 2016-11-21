@@ -27,13 +27,16 @@ ${user}, hello!
     <input type="hidden" name="command" value="showallproduct" />
     <input type="submit" value="Show all product"/>
     <br/>
-    <table>
+    <table  width="50%" border="1" rules="all">
+        <tr>
+            <th>Product ID</th><th>NAME</th><th>PRICE</th><th>STATUS</th><th>ADD</th><th>DELETE</th>
+        </tr>
         <c:forEach items="${listproduct}" var="product">
             <tr>
-                <td><c:out value="${product.id}" /></td>
-                <td><c:out value="${product.nameProduct}" /></td>
-                <td><c:out value="${product.price}" /></td>
-                <td><c:out value="${product.status}" /></td>
+                <td align="center"><c:out value="${product.idProduct}" /></td>
+                <td align="center"><c:out value="${product.nameProduct}" /></td>
+                <td align="center"><c:out value="${product.price}" /></td>
+                <td align="center"><c:out value="${product.status}" /></td>
             </tr>
         </c:forEach>
     </table>

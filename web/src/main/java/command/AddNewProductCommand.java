@@ -1,11 +1,11 @@
 package command;
 
 import by.pvt.entity.Product;
-import by.pvt.entity.User;
 import by.pvt.logic.LoginLogic;
-import by.pvt.services.AbstractService;
+import by.pvt.services.IService;
 import by.pvt.services.ServiceFactory;
 import by.pvt.services.ServiceName;
+import by.pvt.services.exception.ServiceException;
 import org.apache.log4j.Logger;
 import resource.ConfigurationManager;
 import resource.MessageManager;
@@ -20,21 +20,27 @@ public class AddNewProductCommand implements ActionCommand  {
 
     public String execute(HttpServletRequest request) {
         String page = null;
-//        Product product = new Product();
-//        product.setNameProduct((String)request.getParameter("productName"));
-//        String priceString = request.getParameter("price");
-//        double price = Double.parseDouble(priceString);
-//        product.setPrice(price);
-//        product.setStatus(request.getParameter("status"));
-//
-//        log.info("Add new Product in class AddNewProductCommand");
-//
-//        AbstractService productService = ServiceFactory.getInstance().getService(ServiceName.PRODUCT);
-//        if (productService.create(product) == true) {
-//            request.setAttribute("user", LoginLogic.getAdminLogin());
-//            request.setAttribute("addNewProductMessage", MessageManager.getProperty("message.addnewproduct"));
-//            page = ConfigurationManager.getProperty("path.page.mainAdmin");
-//        }
+        Product product = new Product();
+        product.setNameProduct((String)request.getParameter("productName"));
+        String priceString = request.getParameter("price");
+        double price = Double.parseDouble(priceString);
+        product.setPrice(price);
+        String statusString = request.getParameter("status");
+        Integer status = Integer.parseInt(statusString);
+        product.setStatus(status);
+
+        log.info("Add new Product in class AddNewProductCommand");
+
+        IService productService = ServiceFactory.getInstance().getService(ServiceName.PRODUCT);
+        try {
+            if (productService.saveOrUpdate(product) == true) {
+                request.setAttribute("user", LoginLogic.getLOGIN());
+                request.setAttribute("addNewProductMessage", MessageManager.getProperty("message.addnewproduct"));
+                page = ConfigurationManager.getProperty("path.page.mainAdmin");
+            }
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         return page;
     }

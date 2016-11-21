@@ -1,7 +1,9 @@
 package by.pvt.logic;
 
-import by.pvt.entity.User;
-import by.pvt.services.impl.UserServiceImpl;
+import by.pvt.entity.Admin;
+import by.pvt.entity.Client;
+import by.pvt.services.impl.AdminServiceImpl;
+import by.pvt.services.impl.ClientServiceImpl;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -11,30 +13,43 @@ import java.util.List;
  */
 public class LoginLogic {
     private static Logger log = Logger.getLogger(LoginLogic.class);
-    private static String ADMIN_LOGIN = "";
-    private static String ADMIN_PASS = "";
+    private static int ID = 1;
+    private static String LOGIN = "";
+    private static String PASS = "";
     private static int USER_TYPE = 0;
     private static int IN_BLACK_LIST = 0;
+    private static boolean isClient = false;
+    private static boolean isAdmin = false;
 
 
     public static boolean checkLogin(String enterLogin, String enterPass) {
         log.info("Checking Login in class LoginLogic");
+        isClient = false;
+        isAdmin = false;
 
-         UserServiceImpl userService = new UserServiceImpl();
-         List<User> users = (List<User>)userService.getUserByLogin(enterLogin);
-        for (User u: users) {
-            System.out.println(u);
+        ClientServiceImpl clientService = new ClientServiceImpl();
+        List<Client> clients = (List<Client>)clientService.getClientByLogin(enterLogin);
+        if (clients == null) isClient = false;
+        for (Client client: clients) {
+            ID = client.getIdUser();
+            LOGIN = client.getLogin();
+            PASS = client.getPassword();
+            USER_TYPE = client.getUserType();
+            IN_BLACK_LIST = client.getInBlackList();
+            if (LOGIN.equals(enterLogin) && PASS.equals(enterPass) && IN_BLACK_LIST==0) isClient = true;
         }
-//
-//        ADMIN_LOGIN = user.getLogin();
-//        ADMIN_PASS = user.getPassword();
-//        USER_TYPE = user.getUserType();
-//        //IN_BLACK_LIST = user.getInBlackList();
-//
-//        if (ADMIN_LOGIN == null || ADMIN_PASS == null) return false;
-//        return ADMIN_LOGIN.equals(enterLogin) &&
-//                ADMIN_PASS.equals(enterPass);
-        return true;
+        AdminServiceImpl adminService = new AdminServiceImpl();
+        List<Admin> admins = (List<Admin>)adminService.getAdminByLogin(enterLogin);
+        if (admins == null) isAdmin = false;
+        for (Admin admin: admins) {
+            ID = admin.getIdUser();
+            LOGIN = admin.getLogin();
+            PASS = admin.getPassword();
+            USER_TYPE = admin.getUserType();
+            if (LOGIN.equals(enterLogin) && PASS.equals(enterPass)) isAdmin = true;
+        }
+
+        return isAdmin == true || isClient == true;
     }
 
     public static int getUserType() {
@@ -45,7 +60,19 @@ public class LoginLogic {
         return IN_BLACK_LIST;
     }
 
-    public static String getAdminLogin() {
-        return ADMIN_LOGIN;
+    public static String getLOGIN() {
+        return LOGIN;
+    }
+
+    public static boolean getIsClient() {
+        return isClient;
+    }
+
+    public static boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public static int getID() {
+        return ID;
     }
 }

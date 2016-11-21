@@ -1,5 +1,6 @@
 package controller;
 
+import by.pvt.services.exception.ServiceException;
 import command.ActionCommand;
 import command.factory.ActionFactory;
 import resource.ConfigurationManager;
@@ -57,7 +58,11 @@ public class Controller extends HttpServlet {
 * call implemented method execute() and passing parameter
 * to Class-specific command handler
 */
-        page = command.execute(request);
+        try {
+            page = command.execute(request);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 // method returns the response page
         if (page != null) {
             RequestDispatcher dispatcher =

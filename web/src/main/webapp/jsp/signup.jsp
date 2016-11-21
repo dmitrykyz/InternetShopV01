@@ -21,6 +21,8 @@
     <br/>
     LastName <input type="text" name="laststname" value=""/>
     <br/>
+    Summ on Credit card<input type="number" name="summoncreditcard" value=""/>
+    <br/>
     <br/>
     <input type="submit" value="Approve"/>
 </form><hr/>

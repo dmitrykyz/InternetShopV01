@@ -1,7 +1,8 @@
 package by.pvt.dao;
 
+import by.pvt.dao.impl.OrderDaoImpl;
 import by.pvt.dao.impl.ProductDaoImpl;
-import by.pvt.dao.impl.UserDaoImpl;
+import by.pvt.dao.impl.ClientDaoImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +17,9 @@ public class DaoFactory {
 
     private DaoFactory() {
         daos = new HashMap<DaoName, BaseDao>();
-        daos.put(DaoName.USER, new UserDaoImpl());
+        daos.put(DaoName.CLIENT, new ClientDaoImpl());
         daos.put(DaoName.PRODUCT, new ProductDaoImpl());
+        daos.put(DaoName.ORDER, new OrderDaoImpl());
     }
 
     public static DaoFactory getInstance() {

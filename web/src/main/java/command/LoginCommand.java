@@ -23,9 +23,9 @@ public class LoginCommand implements ActionCommand {
             request.getSession().setAttribute("user", login);
             request.setAttribute("user", login);
 // определение пути к mainByer.jsp или к mainAdmin.jsp
-            if (LoginLogic.getUserType() == 0){
+            if (LoginLogic.getIsClient() == true){
                 page = ConfigurationManager.getProperty("path.page.mainByer");
-            } else if (LoginLogic.getUserType() == 1){
+            } else if (LoginLogic.getIsAdmin() == true){
                 page = ConfigurationManager.getProperty("path.page.mainAdmin");
             }
 

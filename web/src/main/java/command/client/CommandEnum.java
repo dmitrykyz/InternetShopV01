@@ -14,7 +14,10 @@ public enum CommandEnum {
     RETURN_TO_LOGINJSP (new ReturnToLoginCommand()),
     SHOWALLPRODUCT(new ShowAllProductCommand()),
     ADDNEWPRODUCT (new AddNewProductCommand()),
-    ADDNEWPRODUCTSHOWPAGE(new ShowPageForAddNewProductCommand());
+    ADDNEWPRODUCTSHOWPAGE(new ShowPageForAddNewProductCommand()),
+    ADDPRODUCTTOORDER(new AddProductToOrderCommand()),
+    SHOWBASKET(new ShowBasketCommand());
+    //DELETEPRODUCTFROMORDER(new DeleteProductFromOrderCommand());
 
 
     CommandEnum(ActionCommand command) {
