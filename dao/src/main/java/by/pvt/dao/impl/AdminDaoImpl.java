@@ -3,7 +3,6 @@ package by.pvt.dao.impl;
 import by.pvt.dao.BaseDao;
 import by.pvt.dao.exception.DaoException;
 import by.pvt.entity.Admin;
-import by.pvt.util.ServiceUtilForHibernate;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -25,7 +24,7 @@ public class AdminDaoImpl extends BaseDao<Admin> {
         List<Admin> admins = null;
 
         try {
-            Session session = ServiceUtilForHibernate.getInstance().getUtil().getSession();
+            Session session = getSession();
             String hql = "SELECT A FROM Admin A WHERE A.login=:loginParam";
             Query query = session.createQuery(hql);
             query.setParameter("loginParam", login);

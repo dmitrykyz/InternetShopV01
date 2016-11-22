@@ -8,8 +8,6 @@ import by.pvt.dao.impl.ClientDaoImpl;
 import by.pvt.entity.Client;
 import by.pvt.services.BaseService;
 import by.pvt.services.exception.ServiceException;
-import by.pvt.util.HibernateUtil;
-import by.pvt.util.ServiceUtilForHibernate;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,7 +21,7 @@ import java.util.List;
 public class ClientServiceImpl extends BaseService<Client> {
 
     private static Logger log = Logger.getLogger(ClientServiceImpl.class);
-    Transaction transaction = null;
+    private Transaction transaction = null;
 
     public ClientServiceImpl() {
     }
@@ -31,18 +29,16 @@ public class ClientServiceImpl extends BaseService<Client> {
     @Override
     public Client get(Serializable id) throws ServiceException {
         Dao baseDao = DaoFactory.getInstance().getDao(DaoName.CLIENT);
-        ServiceUtilForHibernate serviceUtilForHibernate = ServiceUtilForHibernate.getInstance();
-        serviceUtilForHibernate.setUtil(HibernateUtil.getHibernateUtil());
-        Session session = serviceUtilForHibernate.getUtil().getSession();
+        Session session = getSession();
         transaction = session.beginTransaction();
         Client client = null;
         try {
             client = (Client) baseDao.get(id);
             transaction.commit();
-            serviceUtilForHibernate.setUtil(null);
+            closeSession();
         } catch (DaoException e) {
-            serviceUtilForHibernate.setUtil(null);
             transaction.rollback();
+            closeSession();
         }
         return client;
     }
@@ -50,32 +46,29 @@ public class ClientServiceImpl extends BaseService<Client> {
     @Override
     public Client load(Serializable id) throws ServiceException {
         Dao baseDao = DaoFactory.getInstance().getDao(DaoName.CLIENT);
-        ServiceUtilForHibernate serviceUtilForHibernate = ServiceUtilForHibernate.getInstance();
-        serviceUtilForHibernate.setUtil(HibernateUtil.getHibernateUtil());
-        Session session = serviceUtilForHibernate.getUtil().getSession();
+        Session session = getSession();
         transaction = session.beginTransaction();
         Client client = null;
         try {
             client = (Client) baseDao.load(id);
             transaction.commit();
-            serviceUtilForHibernate.setUtil(null);
+            closeSession();
         } catch (DaoException e) {
-            serviceUtilForHibernate.setUtil(null);
             transaction.rollback();
+            closeSession();
         }
         return client;
     }
 
     @Override
     public List<Client> getAll() throws ServiceException {
-        return super.getAll();
+        return null;
     }
+
 
     public List<Client> getClientByLogin(String login) {
 
-        ServiceUtilForHibernate serviceUtilForHibernate = ServiceUtilForHibernate.getInstance();
-        serviceUtilForHibernate.setUtil(HibernateUtil.getHibernateUtil());
-        Session session = serviceUtilForHibernate.getUtil().getSession();
+        Session session = getSession();
         transaction = session.beginTransaction();
 
         log.info("Getting object User in class ClientServiceImpl in metod getClientByLogin by login: " + login);
@@ -83,12 +76,12 @@ public class ClientServiceImpl extends BaseService<Client> {
         try {
             List<Client> clients = clientDao.getClientByLogin(login);
             transaction.commit();
-            serviceUtilForHibernate.setUtil(null);
+            closeSession();
             return clients;
         } catch (DaoException e) {
             e.printStackTrace();
             transaction.rollback();
-            serviceUtilForHibernate.setUtil(null);
+            closeSession();
             return null;
         }
 

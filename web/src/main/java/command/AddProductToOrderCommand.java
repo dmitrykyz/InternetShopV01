@@ -28,7 +28,7 @@ public class AddProductToOrderCommand implements ActionCommand  {
         String page = ConfigurationManager.getProperty("path.page.mainByer");;
 
         System.out.println("----------------------------------------------------");
-        String idProductString = request.getParameter("id");
+        String idProductString = request.getParameter("productId");
         System.out.println("**********************");
         System.out.println(idProductString);
         Integer idProduct = Integer.parseInt(idProductString);

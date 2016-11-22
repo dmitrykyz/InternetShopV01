@@ -16,7 +16,10 @@ public enum CommandEnum {
     ADDNEWPRODUCT (new AddNewProductCommand()),
     ADDNEWPRODUCTSHOWPAGE(new ShowPageForAddNewProductCommand()),
     ADDPRODUCTTOORDER(new AddProductToOrderCommand()),
-    SHOWBASKET(new ShowBasketCommand());
+    SHOWBASKET(new ShowBasketCommand()),
+    //SHOWALLPRODUCTPAGINATIONSHOWPAGE (new ShowPageForShowAllProductPaginationCommand()),
+    //SHOWALLPRODUCTPAGINATIONSHOWPAGE (new GetAllProductPagination()),
+    GETALLPRODUCTPAGINATION (new GetAllProductPagination());
     //DELETEPRODUCTFROMORDER(new DeleteProductFromOrderCommand());
 
 

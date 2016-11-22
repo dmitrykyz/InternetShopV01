@@ -43,23 +43,18 @@ ${user}, hello!
                 <td align="center">
                     <form name="DeleteProductFromOrder" method="POST" action="controller">
                          <input type="hidden" name="command" value="deleteproductfromorder" />
-                         <input type="submit" value="-"/>
+                         <input type="hidden" name="productId" value="${product.idProduct}" />
+                         <input type="submit" value="-" onclick=""/>
                     </form>
                 </td>
             </tr>
         </c:forEach>
     </table>
     <br/>
-</form><hr/>
-
-<form name="AddProductToOrderById" method="POST" action="controller">
-    <input type="hidden" name="command" value="addproducttoorder" />
-    <br/>
-    Add product to order with ID = : <input type="number" name="id" value=""/>
-    <br/>
-    <input type="submit" value="Add product to order"/>
-    ${addProductToOrderCommandMessage}
 </form>
+    ${addProductToOrderCommandMessage}
+<hr/>
+
 
 <form name="ShowBasketForm" method="POST" action="controller">
     <h3>If your want show your basket click "Show basket"</h3>

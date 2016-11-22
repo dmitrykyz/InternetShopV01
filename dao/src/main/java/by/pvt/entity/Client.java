@@ -26,7 +26,7 @@ public class Client extends User {
     @Column(name = "summOnCreditCard")
     private Double summOnCreditCard = 100000.0;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Order> orderListInbBasket;         //Basket with product
 
     public Client() {

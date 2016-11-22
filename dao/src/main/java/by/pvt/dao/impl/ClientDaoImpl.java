@@ -3,8 +3,6 @@ package by.pvt.dao.impl;
 import by.pvt.dao.BaseDao;
 import by.pvt.dao.exception.DaoException;
 import by.pvt.entity.Client;
-import by.pvt.entity.User;
-import by.pvt.util.ServiceUtilForHibernate;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -26,7 +24,7 @@ public class ClientDaoImpl extends BaseDao<Client> {
         List<Client> clients = null;
 
         try {
-            Session session = ServiceUtilForHibernate.getInstance().getUtil().getSession();
+            Session session = getSession();
             String hql = "SELECT C FROM Client C WHERE C.login=:loginParam";
             Query query = session.createQuery(hql);
             query.setParameter("loginParam", login);

@@ -24,7 +24,7 @@ public class Order implements Serializable{
     @GeneratedValue(generator = "increment")
     private Integer idOrder;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "T_ORDER_PRODUCT",
             joinColumns = {@JoinColumn(name = "F_ORDER_ID")},
             inverseJoinColumns = {@JoinColumn (name = "F_PRODUCT_ID")})

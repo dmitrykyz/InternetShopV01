@@ -1,18 +1,13 @@
 package by.pvt.dao;
 
-import by.pvt.dao.Dao;
 import by.pvt.dao.exception.DaoException;
-import by.pvt.util.HibernateUtil;
-import by.pvt.util.ServiceUtilForHibernate;
+import by.pvt.util.HibernateSessionFactory;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
 
 public class BaseDao<T> implements Dao<T> {
     private static Logger log = Logger.getLogger(BaseDao.class);
@@ -22,9 +17,13 @@ public class BaseDao<T> implements Dao<T> {
 
     }
 
+    protected Session getSession(){
+        return HibernateSessionFactory.getSession();
+    }
+
     public void saveOrUpdate(T t) throws DaoException {
         try {
-            Session session = ServiceUtilForHibernate.getInstance().getUtil().getSession();
+            Session session = getSession();
             session.saveOrUpdate(t);
             log.info("saveOrUpdate(t):" + t);
             log.info("Save or update (commit):" + t);
@@ -39,7 +38,7 @@ public class BaseDao<T> implements Dao<T> {
         log.info("Get class by id:" + id);
         T t = null;
         try {
-            Session session = ServiceUtilForHibernate.getInstance().getUtil().getSession();
+            Session session = getSession();
             t = (T) session.get(getPersistentClass(), id);
             System.out.println("isDirty before commit = "+ session.isDirty());
             System.out.println("isDirty after commit = "+ session.isDirty());
@@ -55,7 +54,7 @@ public class BaseDao<T> implements Dao<T> {
         log.info("Load class by id:" + id);
         T t = null;
         try {
-            Session session = ServiceUtilForHibernate.getInstance().getUtil().getSession();
+            Session session = getSession();
             t = (T) session.load(getPersistentClass(), id);
             System.out.println("isDirty before commit = "+ session.isDirty());
             log.info("load() class:" + t);
@@ -69,7 +68,7 @@ public class BaseDao<T> implements Dao<T> {
 
     public void delete(T t) throws DaoException {
         try {
-            Session session = ServiceUtilForHibernate.getInstance().getUtil().getSession();
+            Session session = getSession();
             session.delete(t);
             log.info("Delete:" + t);
         } catch (HibernateException e) {
@@ -79,7 +78,7 @@ public class BaseDao<T> implements Dao<T> {
     }
 
 
-    private Class getPersistentClass() {
+    protected Class getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 

@@ -14,7 +14,7 @@
 ${user}, hello!
 <hr/>
 <a href="controller?command=logout">Logout</a>
-<form name="signupForm" method="POST" action="controller">
+<form name="AddNewProduct" method="POST" action="controller">
     <h3>If your want add new product in shop click "Add new product"</h3>
     <input type="hidden" name="command" value="addnewproductshowpage" />
     <input type="submit" value="Add new product"/>
@@ -22,14 +22,24 @@ ${user}, hello!
     <br/>
     ${addNewProductMessage}
 </form><hr/>
-<form name="AddNewForm" method="POST" action="controller">
+
+<form name="ShowAllProductPaginationForm" method="POST" action="controller">
+    <h3>If your want show all product in shop click "Show all product"</h3>
+    <input type="hidden" name="command" value="getallproductpagination" />
+    <input type="submit" value="Show all product pagination"/>
+    <br/>
+    <br/>
+    ${addNewProductMessage}
+</form><hr/>
+
+<form name="ShowAllProductForm" method="POST" action="controller">
     <h3>If your want show all product in shop click "Show all product"</h3>
     <input type="hidden" name="command" value="showallproduct" />
     <input type="submit" value="Show all product"/>
     <br/>
     <table  width="50%" border="1" rules="all">
         <tr>
-            <th>Product ID</th><th>NAME</th><th>PRICE</th><th>STATUS</th><th>ADD</th><th>DELETE</th>
+            <th>Product ID</th><th>NAME</th><th>PRICE</th><th>STATUS</th><th>DELETE PRODUCT</th>
         </tr>
         <c:forEach items="${listproduct}" var="product">
             <tr>
@@ -42,4 +52,5 @@ ${user}, hello!
     </table>
     <br/>
 </form><hr/>
+
 </body></html>
