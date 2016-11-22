@@ -72,7 +72,7 @@ public class BaseDao<T> implements Dao<T> {
             session.delete(t);
             log.info("Delete:" + t);
         } catch (HibernateException e) {
-            log.error("Error save or update PERSON in Dao" + e);
+            log.error("Error delete PERSON in Dao" + e);
             throw new DaoException(e);
         }
     }

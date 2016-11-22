@@ -35,7 +35,7 @@ public class Order implements Serializable{
     private Client client;
 
     @Column(name = "totalPrice")
-    private Double totalPrice;
+    private Double totalPrice = 0.0;
     @Column(name = "isRegistryOrder")
     private Integer isRegistryOrder = 0; //1- registry ; 0 - not registry
     @Column(name = "isPaidOrder")
