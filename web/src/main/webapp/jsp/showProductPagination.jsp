@@ -11,6 +11,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <title>All Product</title>
 </head>
 <body>
@@ -20,20 +21,28 @@
 <td>Current page: ${page}</td>
 </br>
 </br>
-<table  width="50%" border="1" rules="all">
-    <tr>
-        <th>Product ID</th><th>NAME</th><th>PRICE</th><th>STATUS</th><th>DELETE</th>
-    </tr>
+<div class="row">
+    <div class="col-md-2"> </div>
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-hover"  width="50%" border="1" rules="all">
+                <tr>
+                    <th>Product ID</th><th>NAME</th><th>PRICE</th><th>STATUS</th>
+                </tr>
 
-    <c:forEach items="${listproductpagination}" var="product">
-        <tr>
-            <td align="center"><c:out value="${product.idProduct}" /></td>
-            <td align="center"><c:out value="${product.nameProduct}" /></td>
-            <td align="center"><c:out value="${product.price}" /></td>
-            <td align="center"><c:out value="${product.status}" /></td>
-        </tr>
-    </c:forEach>
-</table>
+                <c:forEach items="${listproductpagination}" var="product">
+                    <tr>
+                        <td align="center"><c:out value="${product.idProduct}" /></td>
+                        <td align="center"><c:out value="${product.nameProduct}" /></td>
+                        <td align="center"><c:out value="${product.price}" /></td>
+                        <td align="center"><c:out value="${product.status}" /></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-2"> </div>
+</div>
 </br>
 </br>
 

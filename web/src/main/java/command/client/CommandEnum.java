@@ -17,6 +17,7 @@ public enum CommandEnum {
     ADDNEWPRODUCTSHOWPAGE(new ShowPageForAddNewProductCommand()),
     ADDPRODUCTTOORDER(new AddProductToOrderCommand()),
     SHOWBASKET(new ShowBasketCommand()),
+    AJAXCOMMAND(new AjaxCommand()),
     //SHOWALLPRODUCTPAGINATIONSHOWPAGE (new ShowPageForShowAllProductPaginationCommand()),
     //SHOWALLPRODUCTPAGINATIONSHOWPAGE (new GetAllProductPagination()),
     GETALLPRODUCTPAGINATION (new GetAllProductPagination());

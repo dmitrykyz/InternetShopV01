@@ -5,6 +5,7 @@ import by.pvt.dao.impl.ProductDaoImpl;
 import by.pvt.entity.Product;
 import junit.framework.TestCase;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -22,12 +23,12 @@ public class BaseDaoTest{
 
     @Before
     public void setUp(){
-        productDao = new ProductDaoImpl();
-        product1 = new Product();
-        product1.setIdProduct(99);
-        product1.setNameProduct("Tea");
-        product1.setPrice(5.0);
-        product1.setStatus(1);
+//        productDao = new ProductDaoImpl();
+//        product1 = new Product();
+//        product1.setIdProduct(99);
+//        product1.setNameProduct("Tea");
+//        product1.setPrice(5.0);
+//        product1.setStatus(1);
 //        try {
 //            productDao.saveOrUpdate(product1);
 //        } catch (DaoException e) {
@@ -43,25 +44,24 @@ public class BaseDaoTest{
 //            e.printStackTrace();
 //        }
 //        assertNotNull(productDao.get(99));
-        //assertNotNull(productDao.get(98));
 
     }
 
     @Test
     public void get() throws Exception {
 
-        Product product = null;
-
-        try {
-            productDao.saveOrUpdate(product1);
-            product = productDao.get(99);
-
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
-        assertNotNull(product);
-        assertEquals(product, product1);
-        assertNull(productDao.get(1000));
+//        Product product = null;
+//
+//        try {
+//            productDao.saveOrUpdate(product1);
+//            product = productDao.get(99);
+//
+//        } catch (DaoException e) {
+//            e.printStackTrace();
+//        }
+//        assertNotNull(product);
+//        assertEquals(product, product1);
+//        assertNull(productDao.get(1000));
     }
 
     @Test

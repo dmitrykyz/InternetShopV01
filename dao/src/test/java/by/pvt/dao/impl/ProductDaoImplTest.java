@@ -45,13 +45,13 @@ public class ProductDaoImplTest {
 //        product3.setNameProduct("Chips");
 //        product3.setPrice(6.0);
 //        product3.setStatus(1);
-////        try {
-////            productDao.saveOrUpdate(product1);
-////            productDao.saveOrUpdate(product2);
-////            productDao.saveOrUpdate(product3);
-////        } catch (DaoException e) {
-////            e.printStackTrace();
-////        }
+//        try {
+//            productDao.saveOrUpdate(product1);
+//            productDao.saveOrUpdate(product2);
+//            productDao.saveOrUpdate(product3);
+//        } catch (DaoException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ProductDaoImplTest {
 //        System.out.println("---------" + productListbefore.size());
 //        System.out.println("+++++++++" + productListafter.size());
 //        assertEquals(productListbefore.size(), productListafter.size());
-//
+
 
     }
 

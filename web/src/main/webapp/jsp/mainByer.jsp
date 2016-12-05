@@ -7,8 +7,43 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html><head><title>Welcome</title></head>
+<html>
+<head><title>Welcome</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+//        function addProduct(element) {
+//
+//        }
+        $(document).ready(function(){
+            $('.add').click(function(){
+                var productId = $('#productId').val();
+                $.ajax({
+                    type:'POST',
+                    data: {
+                        productId : '8',
+                        command: 'addproducttoorder'},
+                    url: 'controller',
+                    success: function(result){
+                        //$(document).val(result);
+                        alert("All Work");
+//                        $('#someTextRezult').val(result);
+                        //$('#someTextRezult').val(someText + "vvrr");
+                    }
+                })
+            })
+        })
+    </script>
+</head>
 <body>
+
+<!-- Это для тестов -->
+<input class = "btn btn-default" type="button" id="ButtonAddProductToOrder1" value="+" />
+
 <h3>Welcome to internet shop dear byer!</h3>
 <hr/>
 ${user}, hello!
@@ -18,7 +53,7 @@ ${user}, hello!
 <form name="ShowProductForm" method="POST" action="controller">
     <h3>If your want show all product in shop click "Show all product"</h3>
     <input type="hidden" name="command" value="showallproduct" />
-    <input type="submit" value="Show all product"/>
+    <input class="btn btn-default" type="submit" btn-md value="Show all product"/>
     <br/>
     <table width="50%" border="1" rules="all">
         <tr>
@@ -36,15 +71,10 @@ ${user}, hello!
                 <td align="center">
                     <form name="AddProductToOrder" method="POST" action="controller">
                         <input type="hidden" name="command" value="addproducttoorder" />
-                        <input type="hidden" name="productId" value="${product.idProduct}" />
-                        <input type="submit" value="+" onclick=""/>
-                    </form>
-                </td>
-                <td align="center">
-                    <form name="DeleteProductFromOrder" method="POST" action="controller">
-                         <input type="hidden" name="command" value="deleteproductfromorder" />
-                         <input type="hidden" name="productId" value="${product.idProduct}" />
-                         <input type="submit" value="-" onclick=""/>
+                        <input type="hidden" name="productId" id="productId" value="${product.idProduct}" />
+                        <!--тут поменял submit на button-->
+                        <input class = "btn btn-default add" type="button" id="ButtonAddProductToOrder"
+                               value="+"<%-- onclick="addProduct(this)--%>"/>
                     </form>
                 </td>
             </tr>
@@ -54,12 +84,19 @@ ${user}, hello!
 </form>
     ${addProductToOrderCommandMessage}
 <hr/>
+<form name="ShowAllProductPaginationForm" method="POST" action="controller">
+    <h3>If your want show all product in shop click "Show all product"</h3>
+    <input type="hidden" name="command" value="getallproductpagination" />
+    <input class="btn btn-default" type="submit" btn-md value="Show all product pagination"/>
+    <br/>
+    <br/>
+</form><hr/>
 
 
 <form name="ShowBasketForm" method="POST" action="controller">
     <h3>If your want show your basket click "Show basket"</h3>
     <input type="hidden" name="command" value="showbasket" />
-    <input type="submit" value="Show basket"/>
+    <input class="btn btn-default" type="submit" btn-md value="Show basket"/>
     <br/>
     <table width="50%" border="1" rules="all">
         <tr>

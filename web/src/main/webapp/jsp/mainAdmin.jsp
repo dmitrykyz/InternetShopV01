@@ -7,7 +7,9 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html><head><title>Welcome</title></head>
+<html><head><title>Welcome</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body>
 <h3>Welcome to internet shop dear seller or admin!</h3>
 <hr/>
@@ -17,7 +19,7 @@ ${user}, hello!
 <form name="AddNewProduct" method="POST" action="controller">
     <h3>If your want add new product in shop click "Add new product"</h3>
     <input type="hidden" name="command" value="addnewproductshowpage" />
-    <input type="submit" value="Add new product"/>
+    <input class="btn btn-default" type="submit" btn-md value="Add new product"/>
     <br/>
     <br/>
     ${addNewProductMessage}
@@ -26,20 +28,19 @@ ${user}, hello!
 <form name="ShowAllProductPaginationForm" method="POST" action="controller">
     <h3>If your want show all product in shop click "Show all product"</h3>
     <input type="hidden" name="command" value="getallproductpagination" />
-    <input type="submit" value="Show all product pagination"/>
+    <input class="btn btn-default" type="submit" btn-md value="Show all product pagination"/>
     <br/>
     <br/>
-    ${addNewProductMessage}
 </form><hr/>
 
 <form name="ShowAllProductForm" method="POST" action="controller">
     <h3>If your want show all product in shop click "Show all product"</h3>
     <input type="hidden" name="command" value="showallproduct" />
-    <input type="submit" value="Show all product"/>
+    <input class="btn btn-default" type="submit" value="Show all product"/>
     <br/>
     <table  width="50%" border="1" rules="all">
         <tr>
-            <th>Product ID</th><th>NAME</th><th>PRICE</th><th>STATUS</th><th>DELETE PRODUCT</th>
+            <th>Product ID</th><th>NAME</th><th>PRICE</th><th>STATUS</th>
         </tr>
         <c:forEach items="${listproduct}" var="product">
             <tr>

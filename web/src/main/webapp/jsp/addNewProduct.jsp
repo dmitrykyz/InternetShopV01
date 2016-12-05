@@ -30,7 +30,7 @@
     Status <input type="text" name="status" value=""/>
     <br/>
     <br/>
-    <input type="submit" value="Add product"/>
+    <input class="btn btn-default" type="submit" btn-md value="Add product"/>
 </form><hr/>
 </body>
 </html>

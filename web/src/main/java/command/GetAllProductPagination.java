@@ -29,8 +29,6 @@ public class GetAllProductPagination implements ActionCommand {
 
         if (countPerPage == null)
             countPerPage = "10";
-/*        if (page == "null")
-            page = "1";*/
         if (page == null)
             page = "1";
 
